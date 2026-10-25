@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Who's That Pokémon? — Guess the Pokémon</title>
+  <meta name="description" content="A simple Pokémon silhouette guessing game. Compare types, generation, height, and weight to find the answer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-top">
+        <h1 class="title">Who's That Pokémon?</h1>
+        <div class="gen-wrapper">
+          <select id="genFilter" class="select-input" aria-label="Filter Generation">
+            <option value="1">Gen 1 (1–151)</option>
+            <option value="2">Gen 1–2 (1–251)</option>
+            <option value="3">Gen 1–3 (1–386)</option>
+            <option value="all" selected>All Gen (1–1025)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-label">Streak</span>
+          <span id="streakCount" class="stat-value">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Guesses</span>
+          <span id="guessCount" class="stat-value">0</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Game Section -->
+    <main class="game-layout">
+      <!-- Silhouette Card -->
+      <section class="card silhouette-section">
+        <div class="silhouette-box">
+          <div id="imageLoader" class="spinner"></div>
+          <img id="pokemonImage" class="pokemon-img silhouette" src="" alt="Mystery Pokémon silhouette">
+          
+          <div id="revealBanner" class="reveal-tag hidden">
+            <span>It's</span>
+            <strong id="revealedName">Pikachu!</strong>
+          </div>
+        </div>
+
+        <div class="btn-group">
+          <button id="cryBtn" class="btn btn-secondary" disabled aria-label="Play sound">
+            <span>🔊 Cry</span>
+          </button>
+          <button id="giveUpBtn" class="btn btn-danger">
+            Give Up
+          </button>
+          <button id="nextBtn" class="btn btn-primary hidden">
+            Next Pokémon →
+          </button>
+        </div>
+      </section>
+
+      <!-- Guessing & Comparison Feed -->
+      <section class="card guess-section">
+        <!-- Search bar -->
+        <div class="search-wrap">
+          <div class="input-box">
+            <span class="search-icon">🔍</span>
+            <input 
+              type="text" 
+              id="guessInput" 
+              placeholder="Search Pokémon name or ID..." 
+              autocomplete="off" 
+              autocapitalize="off"
+              spellcheck="false"
+            >
+            <button id="clearInputBtn" class="clear-btn hidden" aria-label="Clear">✕</button>
+          </div>
+          <ul id="suggestionList" class="suggestions hidden"></ul>
+        </div>
+
+        <!-- Status / Hint -->
+        <div id="statusMessage" class="status-box">
+          Type a Pokémon to guess and compare common features.
+        </div>
+
+        <!-- Clues List -->
+        <div class="clues-wrap">
+          <div class="clues-bar">
+            <span class="clues-heading">Guesses & Clues</span>
+            <span id="cluesCounter" class="clues-count">0</span>
+          </div>
+
+          <div id="emptyClues" class="empty-hint">
+            Your guesses will appear here with comparison features (types, generation, height, weight).
+          </div>
+
+          <div id="cluesList" class="clues-feed"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      Powered by <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokéAPI</a>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
