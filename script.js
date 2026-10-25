@@ -21,7 +21,7 @@ function playTone(freq, dur = 0.15, type = 'sine') {
     osc.connect(gain).connect(ctx.destination);
     osc.start();
     osc.stop(ctx.currentTime + dur);
-  } catch (e) {}
+  } catch (e) { }
 }
 
 const state = {
@@ -81,6 +81,7 @@ async function startRound() {
   state.guesses = [];
   state.count = 0;
   state.done = false;
+
   $('guessCount').textContent = '0';
   $('cluesCounter').textContent = '0';
   $('cluesList').innerHTML = '';
@@ -124,7 +125,7 @@ function revealTarget(won, guess = null) {
   $('nextBtn').classList.remove('hidden');
   $('guessInput').disabled = true;
 
-  if (state.cry) state.cry.play().catch(() => {});
+  if (state.cry) state.cry.play().catch(() => { });
   if (won) {
     state.streak++;
     [523, 659, 784].forEach((f, i) => setTimeout(() => playTone(f, 0.2), i * 70));
@@ -233,7 +234,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   $('clearInputBtn').onclick = () => { $('guessInput').value = ''; $('clearInputBtn').classList.add('hidden'); hideSuggest(); $('guessInput').focus(); };
   $('suggestionList').onclick = (e) => { const it = e.target.closest('.suggestion-item'); if (it) submitGuess(it.dataset.name); };
   document.onclick = (e) => { if (!$('guessInput').contains(e.target) && !$('suggestionList').contains(e.target)) hideSuggest(); };
-  $('cryBtn').onclick = () => state.cry?.play().catch(() => {});
+  $('cryBtn').onclick = () => state.cry?.play().catch(() => { });
   $('giveUpBtn').onclick = () => !state.done && revealTarget(false);
   $('nextBtn').onclick = startRound;
   $('genFilter').onchange = startRound;
